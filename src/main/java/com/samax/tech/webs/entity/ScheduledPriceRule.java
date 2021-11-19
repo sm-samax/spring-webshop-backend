@@ -16,6 +16,6 @@ public class ScheduledPriceRule extends PriceRule {
 	public boolean isActive()
 	{
 		LocalDateTime now = LocalDateTime.now(ZoneId.systemDefault());
-		return active && startTime.isBefore(now) && endTime.isAfter(now); 
+		return super.isActive() && startTime.isBefore(now) && endTime.isAfter(now); 
 	}
 }

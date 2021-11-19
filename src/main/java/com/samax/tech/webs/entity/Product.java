@@ -3,17 +3,26 @@ package com.samax.tech.webs.entity;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Comparator;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
-@Table(name = "Products")
+@Table(name = "PRODUCT")
 public class Product implements Serializable, Comparable<Product>
 {
 	private static final long serialVersionUID = 1119L;
@@ -33,81 +42,41 @@ public class Product implements Serializable, Comparable<Product>
 	private String thumbnailURL;
 	private String[] imagesURL;
 	
-	@Column(nullable = false)
-	private String[] tags;
+	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@JsonManagedReference
+	private Set<Tag> tags;
+	
 	
 	@Column(nullable = false)
 	private BigDecimal price;
 	
-	private boolean priceRulePresent;
 	private PriceRule priceRule;
-	private boolean available;
 	private int amountLeft;
 	private int popularity;
 	
-	public Product() {
-		
-	}
+	public Product() {}
 	
-	public Product(String name, String details, String thumbNailURL, String[] imagesURL, String[] tags,
-			BigDecimal price, boolean priceRulePresent, PriceRule priceRule, boolean available, int amountLeft,
-			int popularity) {
+	public Product(String name, String details, String thumbNailURL, String[] imagesURL, Set<Tag> tags,
+			BigDecimal price, PriceRule priceRule, int amountLeft, int popularity) {
 		setName(name);
 		setDetails(details);
 		setThumbnailURL(thumbNailURL);
 		setImagesURL(imagesURL);
 		setTags(tags);
 		setPrice(price);
-		setPriceRulePresent(priceRulePresent);
 		setPriceRule(priceRule);
 		setAmountLeft(amountLeft);
-		setAvailable(available);
 		setPopularity(popularity);
 	}
 	
-	public Product(String name, String details, String thumbNailURL, String[] imagesURL, String[] tags,
-			BigDecimal price, boolean available, int amountLeft, int popularity) {
-		setName(name);
-		setDetails(details);
-		setThumbnailURL(thumbNailURL);
-		setImagesURL(imagesURL);
-		setTags(tags);
-		setPrice(price);
-		setPriceRulePresent(false);
-		setPriceRule(noPriceRule);
-		setAmountLeft(amountLeft);
-		setAvailable(available);
-		setPopularity(popularity);
+	public Product(String name, String details, String thumbnailURL, String[] imagesURL, Set<Tag> tags,
+			BigDecimal price, int amountLeft, int popularity) 
+	{
+		this(name, details, thumbnailURL, imagesURL, tags, price, noPriceRule, amountLeft, popularity);
 	}
-	
-	public Product(String name, String details, String thumbNailURL, String[] imagesURL, String[] tags,
-			BigDecimal price, boolean priceRulePresent, PriceRule priceRule, boolean available, int amountLeft) {
-		setName(name);
-		setDetails(details);
-		setThumbnailURL(thumbNailURL);
-		setImagesURL(imagesURL);
-		setTags(tags);
-		setPrice(price);
-		setPriceRulePresent(priceRulePresent);
-		setPriceRule(priceRule);
-		setAmountLeft(amountLeft);
-		setAvailable(available);
-		setPopularity(defaultPopularity);
-	}
-	
-	public Product(String name, String details, String thumbNailURL, String[] imagesURL, String[] tags,
-			BigDecimal price, boolean available, int amountLeft) {
-		setName(name);
-		setDetails(details);
-		setThumbnailURL(thumbNailURL);
-		setImagesURL(imagesURL);
-		setTags(tags);
-		setPrice(price);
-		setPriceRulePresent(false);
-		setPriceRule(noPriceRule);
-		setAmountLeft(amountLeft);
-		setAvailable(available);
-		setPopularity(defaultPopularity);
+
+	public Product(String name, String details, Set<Tag> tags, BigDecimal price, int amountLeft) {
+		this(name, details, "nullURL", new String[]{}, tags, price, noPriceRule, amountLeft, defaultPopularity);
 	}
 
 	public Long getId() {
@@ -150,11 +119,11 @@ public class Product implements Serializable, Comparable<Product>
 		this.imagesURL = imagesURL;
 	}
 
-	public String[] getTags() {
+	public Set<Tag> getTags() {
 		return tags;
 	}
 
-	public void setTags(String[] tags) {
+	public void setTags(Set<Tag> tags) {
 		this.tags = tags;
 	}
 
@@ -171,29 +140,7 @@ public class Product implements Serializable, Comparable<Product>
 	}
 
 	public void setPriceRule(PriceRule priceRule) {
-		if(isPriceRulePresent())
 			this.priceRule = priceRule;
-		else
-			this.priceRule = noPriceRule;
-	}
-
-	public boolean isPriceRulePresent() {
-		return priceRulePresent;
-	}
-
-	public void setPriceRulePresent(boolean priceRulePresent) {
-		this.priceRulePresent = priceRulePresent;
-	}
-
-	public boolean isAvailable() {
-		return available;
-	}
-
-	public void setAvailable(boolean available) {
-		if(getAmountLeft() > 0)
-			this.available = available;
-		else
-			this.available = false;
 	}
 
 	public int getAmountLeft() {
@@ -220,9 +167,24 @@ public class Product implements Serializable, Comparable<Product>
 			return price;
 	}
 
+	public boolean isPriceRulePresent() {
+		return priceRule != null && priceRule != noPriceRule;
+	}
+
+	public boolean isAvailable() {
+		return getAmountLeft() > 0;
+	}
+	
 	@Override
 	public int compareTo(Product p) {
 		return defaultComparator.compare(this, p);
 	}
 
+	@Override
+	public boolean equals(Object obj) {
+		if(obj != null && this.getClass() == obj.getClass() && this.id == ((Product)obj).id)
+			return true;
+		
+		return false;
+	}
 }

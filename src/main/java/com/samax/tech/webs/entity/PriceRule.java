@@ -4,17 +4,21 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.MathContext;
 
+import javax.persistence.Inheritance;
+import javax.persistence.Transient;
+
 public class PriceRule implements Serializable 
 {
 	private static final long serialVersionUID = 5671L;
 	
-	protected double priceReductionAmount;
-	protected boolean active;
+	@Transient
+	private BigDecimal reductor;
+	
+	private double priceReductionAmount;
+	private boolean active;
 	
 	public PriceRule()
 	{
-		priceReductionAmount = 0.0;
-		active = false;
 	}
 	
 	public PriceRule(double priceReductionAmount, boolean active) {
@@ -29,7 +33,6 @@ public class PriceRule implements Serializable
 	public void setPriceReductionAmount(double priceReductionAmount) {
 		this.priceReductionAmount = priceReductionAmount;
 	}
-
 	
 	public void setActive(boolean active) {
 		this.active = active;
@@ -42,6 +45,9 @@ public class PriceRule implements Serializable
 	
 	public BigDecimal apply(BigDecimal price)
 	{
-		return price.multiply(new BigDecimal(priceReductionAmount / 100.0));
+		if(reductor == null)
+			reductor = new BigDecimal(priceReductionAmount / 100.0);
+		
+		return price.multiply(reductor);
 	}
 }
