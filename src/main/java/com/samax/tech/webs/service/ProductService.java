@@ -8,7 +8,6 @@ import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.RequestEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.samax.tech.webs.entity.Product;
 import com.samax.tech.webs.repos.ProductRepository;
@@ -34,6 +33,11 @@ public class ProductService
 	{
 		return repository.findByTagNameIn(tags);
 	}
+	
+	public List<Product> getProductsByNameContainingIgnoreCase(String name)
+	{
+		return repository.findByNameContainingIgnoreCase(name);
+	}
 
 	public void postProduct(RequestEntity<Product> product) {
 		Product p = product.getBody();
@@ -49,12 +53,6 @@ public class ProductService
 		Transaction tx = null;
 		try {
 			tx = session.beginTransaction();
-			
-			//It is required, since the already persisted tags are detached and without updating they generate exceptions
-			product.getTags().forEach(tag -> {
-				if(tag.getId() != null)
-					session.update(tag);
-			});
 			
 			session.save(product);
 			
@@ -72,8 +70,7 @@ public class ProductService
 		try {
 			return !(product == null || product.getPopularity() < 0 ||
 					product.getName() == null || product.getName().isBlank() ||
-					product.getPrice() == null || product.getPriceRule() == null
-					);
+					product.getPrice() == null);
 		} catch (Exception e) {
 			return false;
 		}

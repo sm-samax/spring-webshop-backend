@@ -11,6 +11,9 @@ import com.samax.tech.webs.entity.Product;
 
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Long>{
+	
 	@Query("FROM Product p INNER JOIN p.tags as t WHERE t.name IN (:tags)")
 	public List<Product> findByTagNameIn(@Param("tags") String[] tags);
+	
+	public List<Product> findByNameContainingIgnoreCase(String name);
 }

@@ -1,0 +1,20 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Relation class="oracle.dbtools.crest.model.design.logical.Relation" name="PRODUCT_PRICERULE" directorySegmentName="seg_0" id="A0C189CC-20CE-B985-55F0-DD1A4D29C850">
+<createdBy>Samu</createdBy>
+<createdTime>2021-11-22 15:58:00 UTC</createdTime>
+<ownerDesignName>webshopBackend</ownerDesignName>
+<engineerTo>
+<item key="BC5DC3CB-1547-E1EE-E2FB-8400929B203A" value="true"/>
+</engineerTo>
+<sourcePk>EF631E9A-8210-03D0-9731-ACED440F1474</sourcePk>
+<targetPk>A54F5C91-BFF8-0645-74E6-2A24B9982CF5</targetPk>
+<identifying>false</identifying>
+<optionalSource>false</optionalSource>
+<optionalTarget>true</optionalTarget>
+<sourceCardinality>1</sourceCardinality>
+<sourceEntity>0BAA9328-C1DF-7D3C-5A8A-266EC61C2918</sourceEntity>
+<targetCardinalityString>*</targetCardinalityString>
+<targetEntity>1BF3F35A-093E-6811-22C9-A579D9688883</targetEntity>
+<transferable>true</transferable>
+<deleteRule>NO ACTION</deleteRule>
+</Relation>

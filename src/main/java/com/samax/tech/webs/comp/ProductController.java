@@ -1,14 +1,11 @@
 package com.samax.tech.webs.comp;
 
 import java.util.List;
-import java.util.Set;
-
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -41,6 +38,12 @@ public class ProductController
 	public ResponseEntity<List<Product>> getProductsWithTag(@PathVariable String[] tags)
 	{
 		return new ResponseEntity<List<Product>>(service.getProductsWithTag(tags), HttpStatus.OK);
+	}
+	
+	@GetMapping("/n={name}")
+	public ResponseEntity<List<Product>> getProductsWithNameContainingIgnoreCase(@PathVariable String name)
+	{
+		return new ResponseEntity<List<Product>>(service.getProductsByNameContainingIgnoreCase(name), HttpStatus.OK);
 	}
 	
 	@PutMapping("/post")

@@ -12,12 +12,10 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
@@ -26,7 +24,6 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 public class Product implements Serializable, Comparable<Product>
 {
 	private static final long serialVersionUID = 1119L;
-	private static final PriceRule noPriceRule = new NoPriceRule();
 	private static final Comparator<Product> defaultComparator = Comparator.comparing(Product::getPopularity);
 	private static final int defaultPopularity = 100;
 	
@@ -46,11 +43,13 @@ public class Product implements Serializable, Comparable<Product>
 	@JsonManagedReference
 	private Set<Tag> tags;
 	
-	
 	@Column(nullable = false)
 	private BigDecimal price;
 	
+	@ManyToOne(optional = true, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JsonManagedReference
 	private PriceRule priceRule;
+	
 	private int amountLeft;
 	private int popularity;
 	
@@ -72,11 +71,11 @@ public class Product implements Serializable, Comparable<Product>
 	public Product(String name, String details, String thumbnailURL, String[] imagesURL, Set<Tag> tags,
 			BigDecimal price, int amountLeft, int popularity) 
 	{
-		this(name, details, thumbnailURL, imagesURL, tags, price, noPriceRule, amountLeft, popularity);
+		this(name, details, thumbnailURL, imagesURL, tags, price, null, amountLeft, popularity);
 	}
 
 	public Product(String name, String details, Set<Tag> tags, BigDecimal price, int amountLeft) {
-		this(name, details, "nullURL", new String[]{}, tags, price, noPriceRule, amountLeft, defaultPopularity);
+		this(name, details, "nullURL", new String[]{}, tags, price, null, amountLeft, defaultPopularity);
 	}
 
 	public Long getId() {
@@ -125,6 +124,8 @@ public class Product implements Serializable, Comparable<Product>
 
 	public void setTags(Set<Tag> tags) {
 		this.tags = tags;
+		for(Tag tag : tags)
+			tag.getProducts().add(this);
 	}
 
 	public BigDecimal getPrice() {
@@ -141,6 +142,8 @@ public class Product implements Serializable, Comparable<Product>
 
 	public void setPriceRule(PriceRule priceRule) {
 			this.priceRule = priceRule;
+			if(priceRule != null)
+			priceRule.getProducts().add(this);
 	}
 
 	public int getAmountLeft() {
@@ -161,14 +164,14 @@ public class Product implements Serializable, Comparable<Product>
 
 	public BigDecimal getCurrentPrice()
 	{
-		if(priceRule.isActive())
+		if(isPriceRulePresent() && priceRule.isActive())
 			return priceRule.apply(price);
 		else
 			return price;
 	}
 
 	public boolean isPriceRulePresent() {
-		return priceRule != null && priceRule != noPriceRule;
+		return priceRule != null;
 	}
 
 	public boolean isAvailable() {

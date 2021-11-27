@@ -31,13 +31,16 @@ public class Runner {
 			Tag nap = new Tag("nap");
 			Tag pant = new Tag("pant");
 
+			PriceRule priceRule50 = new PriceRule(50.0, true);
+			PriceRule priceRule20 = new PriceRule(20.0, true);
+			
 			Product pillow = new Product("Pillow", // name
 					"Description of a good pillow", // description
 					"thumbnailURL", // thumbnail
 					new String[] {"imageURL1", "imageURL2"}, // URL-s
 					Set.of(nap), // tags
 					new BigDecimal(1200), // price
-					new PriceRule(50.0, true), // price rule
+					priceRule50, // price rule
 					999, //amount left
 					102); // popularity
 
@@ -47,18 +50,18 @@ public class Runner {
 					new String[] {"imageURL1", "imageURL2"},
 					Set.of(dressage, pant),
 					new BigDecimal(3500),
-					new PriceRule(20.0, true),
+					priceRule20,
 					999,
 					566);
 
 			Product sunGlasses = new Product("Sunglasses", "Cool sunglasses", Set.of(dressage),
 					new BigDecimal(800), 999);
 			
-			URI uri = URI.create("http://localhost:8080/products/put");
+			URI uri = URI.create("http://localhost:8080/products/post");
 			
-			pc.postProduct(new RequestEntity<Product>(pillow, HttpMethod.PUT, uri));
-			pc.postProduct(new RequestEntity<Product>(jeans, HttpMethod.PUT, uri));
-			pc.postProduct(new RequestEntity<Product>(sunGlasses, HttpMethod.PUT, uri));
+			pc.postProduct(new RequestEntity<Product>(pillow, HttpMethod.POST, uri));
+			pc.postProduct(new RequestEntity<Product>(jeans, HttpMethod.POST, uri));
+			pc.postProduct(new RequestEntity<Product>(sunGlasses, HttpMethod.POST, uri));
 		};
 	}
 }
