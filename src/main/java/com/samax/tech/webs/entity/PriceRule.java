@@ -5,6 +5,7 @@ import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -17,20 +18,18 @@ import javax.persistence.Transient;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
-@Table(name = "PRICERULE")
 public class PriceRule implements Serializable 
 {
 	private static final long serialVersionUID = 5671L;
-	
-	@Transient
-	private BigDecimal reductor;
 	
 	@Id
 	@SequenceGenerator(name = "pricerule_generator", initialValue = 11, allocationSize = 3)
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pricerule_generator")
 	private Long id;
 	
-	private double priceReductionAmount;
+	@Column(nullable = false)
+	private BigDecimal priceReductionAmount;
+	
 	private boolean active;
 	
 	@OneToMany(mappedBy = "priceRule")
@@ -42,15 +41,14 @@ public class PriceRule implements Serializable
 		products = new HashSet<>();
 	}
 	
-	public PriceRule(double priceReductionAmount, boolean active) {
+	public PriceRule(BigDecimal priceReductionAmount, boolean active) {
 		this();
 		this.priceReductionAmount = priceReductionAmount;
 		this.active = active;
-		reductor = new BigDecimal(priceReductionAmount / 100.0);
 	}
 	
 	
-	public PriceRule(double priceReductionAmount, boolean active, Set<Product> products) {
+	public PriceRule(BigDecimal priceReductionAmount, boolean active, Set<Product> products) {
 		this.priceReductionAmount = priceReductionAmount;
 		this.active = active;
 		this.products = products;
@@ -72,11 +70,11 @@ public class PriceRule implements Serializable
 		this.products = products;
 	}
 	
-	public double getPriceReductionAmount() {
+	public BigDecimal getPriceReductionAmount() {
 		return priceReductionAmount;
 	}
 
-	public void setPriceReductionAmount(double priceReductionAmount) {
+	public void setPriceReductionAmount(BigDecimal priceReductionAmount) {
 		this.priceReductionAmount = priceReductionAmount;
 	}
 	
@@ -90,9 +88,9 @@ public class PriceRule implements Serializable
 	
 	public BigDecimal apply(BigDecimal price)
 	{
-		if(reductor == null)
-			reductor = new BigDecimal(priceReductionAmount / 100.0);
-		
-		return price.multiply(reductor);
+		if(active)
+			return price.multiply(priceReductionAmount);
+		else 
+			return price;
 	}
 }

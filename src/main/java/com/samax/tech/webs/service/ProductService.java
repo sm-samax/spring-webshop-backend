@@ -1,6 +1,7 @@
 package com.samax.tech.webs.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -29,6 +30,11 @@ public class ProductService
 		return repository.findAll();
 	}
 	
+	public Optional<Product> getProductById(Long id)
+	{
+		return Optional.of(repository.getById(id));
+	}
+	
 	public List<Product> getProductsWithTag(String[] tags)
 	{
 		return repository.findByTagNameIn(tags);
@@ -39,12 +45,22 @@ public class ProductService
 		return repository.findByNameContainingIgnoreCase(name);
 	}
 
-	public void postProduct(RequestEntity<Product> product) {
-		Product p = product.getBody();
-		if(observeProduct(p))
-			save(p);
+	public void postProduct(Product product) {
+		if(observeProduct(product))
+			save(product);
 		else
 			System.out.println("The given product is invalid!");
+	}
+	
+	
+	public long deleteProductByName(String name)
+	{
+		return repository.deleteProductByName(name);
+	}
+	
+	public long deleteProductById(Long id)
+	{
+		return repository.deleteProductById(id);
 	}
 	
 	private void save(Product product)
@@ -68,12 +84,10 @@ public class ProductService
 	private boolean observeProduct(Product product)
 	{
 		try {
-			return !(product == null || product.getPopularity() < 0 ||
-					product.getName() == null || product.getName().isBlank() ||
+			return !(product == null || product.getName() == null || product.getName().isBlank() ||
 					product.getPrice() == null);
 		} catch (Exception e) {
 			return false;
 		}
 	}
-	
 }

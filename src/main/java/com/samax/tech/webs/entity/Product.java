@@ -2,7 +2,9 @@ package com.samax.tech.webs.entity;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -14,18 +16,17 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
-@Table(name = "PRODUCT")
-public class Product implements Serializable, Comparable<Product>
+public class Product implements Serializable
 {
 	private static final long serialVersionUID = 1119L;
-	private static final Comparator<Product> defaultComparator = Comparator.comparing(Product::getPopularity);
-	private static final int defaultPopularity = 100;
 	
 	@Id
 	@SequenceGenerator(name = "productSequenceGenerator", initialValue = 137, allocationSize = 4)
@@ -36,46 +37,48 @@ public class Product implements Serializable, Comparable<Product>
 	private String name;
 	
 	private String details;
-	private String thumbnailURL;
-	private String[] imagesURL;
+	private String imageURL;
+	private int amountLeft;
+	
+	@Column(nullable = false)
+	private BigDecimal price;
 	
 	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JsonManagedReference
 	private Set<Tag> tags;
 	
-	@Column(nullable = false)
-	private BigDecimal price;
-	
-	@ManyToOne(optional = true, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@ManyToOne(optional = true, fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JsonManagedReference
 	private PriceRule priceRule;
 	
-	private int amountLeft;
-	private int popularity;
+	@OneToMany(mappedBy = "product")
+	@JsonBackReference
+	private List<ProductToPurchase> toPurchase;
 	
-	public Product() {}
+	public Product() {
+		this.toPurchase = new ArrayList<>();
+	}
 	
-	public Product(String name, String details, String thumbNailURL, String[] imagesURL, Set<Tag> tags,
-			BigDecimal price, PriceRule priceRule, int amountLeft, int popularity) {
+	public Product(String name, String details, String imageURL, Set<Tag> tags,
+			BigDecimal price, PriceRule priceRule, int amountLeft) {
+		this.toPurchase = new ArrayList<>();
 		setName(name);
 		setDetails(details);
-		setThumbnailURL(thumbNailURL);
-		setImagesURL(imagesURL);
+		setImageURL(imageURL);
 		setTags(tags);
 		setPrice(price);
 		setPriceRule(priceRule);
 		setAmountLeft(amountLeft);
-		setPopularity(popularity);
 	}
 	
-	public Product(String name, String details, String thumbnailURL, String[] imagesURL, Set<Tag> tags,
-			BigDecimal price, int amountLeft, int popularity) 
+	public Product(String name, String details, String imageURL, Set<Tag> tags,
+			BigDecimal price, int amountLeft) 
 	{
-		this(name, details, thumbnailURL, imagesURL, tags, price, null, amountLeft, popularity);
+		this(name, details, imageURL, tags, price, null, amountLeft);
 	}
 
 	public Product(String name, String details, Set<Tag> tags, BigDecimal price, int amountLeft) {
-		this(name, details, "nullURL", new String[]{}, tags, price, null, amountLeft, defaultPopularity);
+		this(name, details, null, tags, price, null, amountLeft);
 	}
 
 	public Long getId() {
@@ -100,22 +103,6 @@ public class Product implements Serializable, Comparable<Product>
 
 	public void setDetails(String details) {
 		this.details = details;
-	}
-
-	public String getThumbnailURL() {
-		return thumbnailURL;
-	}
-
-	public void setThumbnailURL(String thumbNailURL) {
-		this.thumbnailURL = thumbNailURL;
-	}
-
-	public String[] getImagesURL() {
-		return imagesURL;
-	}
-
-	public void setImagesURL(String[] imagesURL) {
-		this.imagesURL = imagesURL;
 	}
 
 	public Set<Tag> getTags() {
@@ -153,34 +140,33 @@ public class Product implements Serializable, Comparable<Product>
 	public void setAmountLeft(int amountLeft) {
 		this.amountLeft = amountLeft > 0 ? amountLeft : 0;
 	}
-	
-	public int getPopularity() {
-		return popularity;
+
+	public String getImageURL() {
+		return imageURL;
 	}
 
-	public void setPopularity(int popularity) {
-		this.popularity = popularity;
+	public void setImageURL(String imageURL) {
+		this.imageURL = imageURL;
+	}
+
+	public List<ProductToPurchase> getToPurchase() {
+		return toPurchase;
+	}
+
+	public void setToPurchase(List<ProductToPurchase> toPurchase) {
+		this.toPurchase = toPurchase;
 	}
 
 	public BigDecimal getCurrentPrice()
 	{
-		if(isPriceRulePresent() && priceRule.isActive())
+		if(priceRule != null)
 			return priceRule.apply(price);
 		else
 			return price;
 	}
 
-	public boolean isPriceRulePresent() {
-		return priceRule != null;
-	}
-
 	public boolean isAvailable() {
 		return getAmountLeft() > 0;
-	}
-	
-	@Override
-	public int compareTo(Product p) {
-		return defaultComparator.compare(this, p);
 	}
 
 	@Override

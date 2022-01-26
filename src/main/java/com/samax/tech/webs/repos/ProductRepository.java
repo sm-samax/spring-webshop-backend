@@ -16,4 +16,8 @@ public interface ProductRepository extends JpaRepository<Product, Long>{
 	public List<Product> findByTagNameIn(@Param("tags") String[] tags);
 	
 	public List<Product> findByNameContainingIgnoreCase(String name);
+	
+	public long deleteProductByName(String name);
+	
+	public long deleteProductById(Long id);
 }
