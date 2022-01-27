@@ -23,11 +23,9 @@ public class ProductToPurchase implements Serializable{
 	private Long id;
 	
 	@ManyToOne
-	@JsonManagedReference
 	private Product product;
 	
 	@ManyToOne
-	@JsonManagedReference
 	private Purchase purchase;
 	
 	@Column(nullable = false)
@@ -40,8 +38,8 @@ public class ProductToPurchase implements Serializable{
 		this.purchase = purchase;
 		this.quantity = quantity;
 		
-		this.product.getToPurchase().add(this);
-		this.purchase.getProducts().add(this);
+//		this.product.getToPurchase().add(this);
+//		this.purchase.getProducts().add(this);
 	}
 
 	public Long getId() {

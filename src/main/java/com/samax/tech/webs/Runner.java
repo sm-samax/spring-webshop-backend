@@ -30,7 +30,7 @@ public class Runner {
 	}
 
 	@Bean
-	public CommandLineRunner insertDataIntoDB(ProductController pc, SessionFactory factory) {
+	public CommandLineRunner insertDataIntoDB(ProductController pc) {
 		return args -> {
 
 			Tag dressage = new Tag("dressage");
@@ -60,21 +60,6 @@ public class Runner {
 			pc.postProduct(p1);
 			pc.postProduct(p2);
 			pc.postProduct(p3);
-			
-			Session session = factory.openSession();
-			Transaction tx = null;
-			try {
-				tx = session.beginTransaction();
-				
-				session.save(purchase);
-				
-				tx.commit();
-			} catch (Exception e) {
-				if(tx != null) tx.rollback();
-			}
-			finally {
-				session.close();
-			}
 		};
 	}
 }

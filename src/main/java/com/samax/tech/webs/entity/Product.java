@@ -53,15 +53,12 @@ public class Product implements Serializable
 	
 	@OneToMany(mappedBy = "product")
 	@JsonBackReference
-	private List<ProductToPurchase> toPurchase;
+	private List<ProductToPurchase> toPurchase = new ArrayList<>();
 	
-	public Product() {
-		this.toPurchase = new ArrayList<>();
-	}
+	public Product() {}
 	
 	public Product(String name, String details, String imageURL, Set<Tag> tags,
 			BigDecimal price, PriceRule priceRule, int amountLeft) {
-		this.toPurchase = new ArrayList<>();
 		setName(name);
 		setDetails(details);
 		setImageURL(imageURL);

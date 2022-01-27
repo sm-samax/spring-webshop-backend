@@ -12,6 +12,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 
@@ -38,14 +39,12 @@ public class Purchase implements Serializable {
 
 	@OneToMany(mappedBy = "purchase")
 	@JsonBackReference
-	private List<ProductToPurchase> products;
-
+	private List<ProductToPurchase> products = new ArrayList<>();
+	
 	public Purchase() {
-		this.products = new ArrayList<>();
 	}
 	
 	public Purchase(Client client, Currency currency) {
-		this.products = new ArrayList<>();
 		this.client = client;
 		this.currency = currency;
 	}
@@ -71,11 +70,12 @@ public class Purchase implements Serializable {
 	}
 
 	public void setSum(BigDecimal sum) {
-		if (this.sum == null)
-			this.sum = products.stream()
-					.map(p2p -> p2p.getProduct().getPrice()
-					.multiply(new BigDecimal(p2p.getQuantity())))
-					.reduce(new BigDecimal(0.0), (b1, b2) -> b1.add(b2));
+//		if (this.sum == null)
+//			this.sum = products.stream()
+//					.map(p2p -> p2p.getProduct().getPrice()
+//					.multiply(new BigDecimal(p2p.getQuantity())))
+//					.reduce(new BigDecimal(0.0), (b1, b2) -> b1.add(b2));
+		this.sum = sum;
 	}
 
 	public List<ProductToPurchase> getProducts() {

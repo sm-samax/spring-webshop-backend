@@ -34,15 +34,11 @@ public class PriceRule implements Serializable
 	
 	@OneToMany(mappedBy = "priceRule")
 	@JsonBackReference
-	private Set<Product> products;
+	private Set<Product> products = new HashSet<>();
 	
-	public PriceRule()
-	{
-		products = new HashSet<>();
-	}
+	public PriceRule(){	}
 	
 	public PriceRule(BigDecimal priceReductionAmount, boolean active) {
-		this();
 		this.priceReductionAmount = priceReductionAmount;
 		this.active = active;
 	}

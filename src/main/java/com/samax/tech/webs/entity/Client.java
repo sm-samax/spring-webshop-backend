@@ -1,6 +1,5 @@
 package com.samax.tech.webs.entity;
 
-import java.io.Serializable;
 import java.time.LocalDate;
 
 import javax.persistence.Column;
@@ -8,10 +7,8 @@ import javax.persistence.Embeddable;
 
 
 @Embeddable
-public class Client implements Serializable{
+public class Client {
 
-	private static final long serialVersionUID = 2221L;
-	
 	@Column(nullable = false)
 	private String firstName;
 	

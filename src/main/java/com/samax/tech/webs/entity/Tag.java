@@ -31,15 +31,12 @@ public class Tag implements Serializable {
 	
 	@ManyToMany(mappedBy = "tags")
 	@JsonBackReference
-	private Set<Product> products;
+	private Set<Product> products = new HashSet<>();
 	
-	public Tag() {
-		products = new HashSet<>();
-	}
+	public Tag() {}
 	
 	public Tag(String name)
 	{
-		this();
 		this.name = name;
 	}
 	
