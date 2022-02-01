@@ -3,7 +3,6 @@ package com.samax.tech.webs.entity;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Set;
 
@@ -18,7 +17,6 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
-import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -47,13 +45,13 @@ public class Product implements Serializable
 	@JsonManagedReference
 	private Set<Tag> tags;
 	
-	@ManyToOne(optional = true, fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@ManyToOne(optional = true, fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
 	@JsonManagedReference
 	private PriceRule priceRule;
 	
-	@OneToMany(mappedBy = "product")
+	@OneToMany(mappedBy = "product", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
 	@JsonBackReference
-	private List<ProductToPurchase> toPurchase = new ArrayList<>();
+	private List<ProductPurchase> purchases = new ArrayList<>();
 	
 	public Product() {}
 	
@@ -146,12 +144,12 @@ public class Product implements Serializable
 		this.imageURL = imageURL;
 	}
 
-	public List<ProductToPurchase> getToPurchase() {
-		return toPurchase;
+	public List<ProductPurchase> getPurchases() {
+		return purchases;
 	}
 
-	public void setToPurchase(List<ProductToPurchase> toPurchase) {
-		this.toPurchase = toPurchase;
+	public void setPurchases(List<ProductPurchase> purchases) {
+		this.purchases = purchases;
 	}
 
 	public BigDecimal getCurrentPrice()

@@ -1,0 +1,88 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="BA6A52CF-1AF5-F47A-325C-B3BA899E4286" name="Product_Purchase">
+<createdBy>Samu</createdBy>
+<createdTime>2022-01-31 11:52:27 UTC</createdTime>
+<ownerDesignName>webshopBackend</ownerDesignName>
+<engineerTo>
+<item key="BC5DC3CB-1547-E1EE-E2FB-8400929B203A" value="true"/>
+</engineerTo>
+<adequatelyNormalized>NO</adequatelyNormalized>
+<expectedVolumes>0</expectedVolumes>
+<fwdEngineeringStrategyName>Single Table</fwdEngineeringStrategyName>
+<growthPercent>0</growthPercent>
+<growthType>Year</growthType>
+<maxVolumes>9999999</maxVolumes>
+<minVolumes>0</minVolumes>
+<normalForm>Third</normalForm>
+<attributes itemClass="oracle.dbtools.crest.model.design.logical.Attribute">
+<Attribute name="ID" id="AAC340A5-C63E-88E1-22D7-929B05E6D586">
+<createdBy>Samu</createdBy>
+<createdTime>2022-01-31 11:52:38 UTC</createdTime>
+<ownerDesignName>webshopBackend</ownerDesignName>
+<engineerTo>
+<item key="BC5DC3CB-1547-E1EE-E2FB-8400929B203A" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="Quantity" id="68301550-27BF-3B8F-D52F-F08DD089B77B">
+<createdBy>Samu</createdBy>
+<createdTime>2022-01-31 11:52:58 UTC</createdTime>
+<ownerDesignName>webshopBackend</ownerDesignName>
+<engineerTo>
+<item key="BC5DC3CB-1547-E1EE-E2FB-8400929B203A" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="ID1" id="14396044-007E-B0C3-74B6-204B522091FC">
+<createdBy>Samu</createdBy>
+<createdTime>2022-01-31 11:57:48 UTC</createdTime>
+<generatorID>371BCAB8-BB0C-29F5-64BF-73ABB6662BEA</generatorID>
+<ownerDesignName>webshopBackend</ownerDesignName>
+<engineerTo>
+<item key="BC5DC3CB-1547-E1EE-E2FB-8400929B203A" value="true"/>
+</engineerTo>
+<referedAttribute>8FF61E8B-4BDE-0DDD-8F36-CE57C0A6E1A1</referedAttribute>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="ID2" id="CE221183-1DF7-74B6-EF89-332FC13DFF6A">
+<createdBy>Samu</createdBy>
+<createdTime>2022-01-31 11:58:09 UTC</createdTime>
+<generatorID>ACC7D626-3541-7A08-FCEF-5175CD2B02A6</generatorID>
+<ownerDesignName>webshopBackend</ownerDesignName>
+<engineerTo>
+<item key="BC5DC3CB-1547-E1EE-E2FB-8400929B203A" value="true"/>
+</engineerTo>
+<referedAttribute>D3A0E532-C9C3-AF64-6B08-6CD1C717CBBE</referedAttribute>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+</attributes>
+<identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
+<identifier id="457B428B-1C70-A42D-A04E-3C94FEF7179B" name="Product_Purchase PK">
+<createdBy>Samu</createdBy>
+<createdTime>2022-01-31 11:52:46 UTC</createdTime>
+<ownerDesignName>webshopBackend</ownerDesignName>
+<shouldEngineer>false</shouldEngineer>
+<engineerTo>
+<item key="BC5DC3CB-1547-E1EE-E2FB-8400929B203A" value="false"/>
+</engineerTo>
+<pk>true</pk>
+<usedAttributes>
+<attributeRef>AAC340A5-C63E-88E1-22D7-929B05E6D586</attributeRef>
+<attributeRef>CE221183-1DF7-74B6-EF89-332FC13DFF6A</attributeRef>
+<attributeRef>14396044-007E-B0C3-74B6-204B522091FC</attributeRef>
+</usedAttributes>
+</identifier>
+</identifiers>
+</Entity>

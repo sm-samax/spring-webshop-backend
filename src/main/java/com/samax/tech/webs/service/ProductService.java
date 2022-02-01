@@ -30,9 +30,9 @@ public class ProductService
 		return repository.findAll();
 	}
 	
-	public Optional<Product> getProductById(Long id)
+	public Product getProductById(Long id)
 	{
-		return Optional.of(repository.getById(id));
+		return repository.findById(id).get();
 	}
 	
 	public List<Product> getProductsWithTag(String[] tags)

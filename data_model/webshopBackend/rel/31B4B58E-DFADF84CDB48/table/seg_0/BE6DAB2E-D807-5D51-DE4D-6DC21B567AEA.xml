@@ -1,0 +1,75 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="BE6DAB2E-D807-5D51-DE4D-6DC21B567AEA" name="Product_Tag">
+<createdBy>Samu</createdBy>
+<createdTime>2022-01-31 12:06:02 UTC</createdTime>
+<ownerDesignName>webshopBackend</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="Product_ID" id="B49577B0-4D34-7FDA-1EE4-215FBCEF536E">
+<createdBy>Samu</createdBy>
+<createdTime>2022-01-31 12:06:02 UTC</createdTime>
+<ownerDesignName>webshopBackend</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="40263FE2-D8FB-8B55-5A7C-1E2D05CFCB3E" referredColumn="BC97CA54-490B-7021-38F2-86D92DB58D87"/>
+</associations>
+</Column>
+<Column name="Tag_ID" id="44E5243E-46FB-C899-29BA-FE88911DEDBE">
+<createdBy>Samu</createdBy>
+<createdTime>2022-01-31 12:06:02 UTC</createdTime>
+<ownerDesignName>webshopBackend</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="4216DA03-E170-5774-DF40-36A0761F1146" referredColumn="A59DD611-FAFF-9ED1-FC7F-205D89450068"/>
+</associations>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="40D4ADC7-94C4-A906-2A1A-B4EBD9DA298B" name="Product_Tag_PK">
+<createdBy>Samu</createdBy>
+<createdTime>2022-01-31 12:06:02 UTC</createdTime>
+<ownerDesignName>webshopBackend</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="B49577B0-4D34-7FDA-1EE4-215FBCEF536E"/>
+<colUsage columnID="44E5243E-46FB-C899-29BA-FE88911DEDBE"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="5D04154C-B42B-9A90-FC2A-8B4FF280EDDA" name="Product_Tag_Product_FK">
+<createdBy>Samu</createdBy>
+<createdTime>2022-01-31 12:06:02 UTC</createdTime>
+<generatorID>4700F956-747B-6FD8-67AC-7FC5EC141337</generatorID>
+<ownerDesignName>webshopBackend</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="B49577B0-4D34-7FDA-1EE4-215FBCEF536E"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="4310A4B1-9327-81DA-3F1A-2A17772856B7" name="Product_Tag_Tag_FK">
+<createdBy>Samu</createdBy>
+<createdTime>2022-01-31 12:06:02 UTC</createdTime>
+<generatorID>4700F956-747B-6FD8-67AC-7FC5EC141337</generatorID>
+<ownerDesignName>webshopBackend</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="44E5243E-46FB-C899-29BA-FE88911DEDBE"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

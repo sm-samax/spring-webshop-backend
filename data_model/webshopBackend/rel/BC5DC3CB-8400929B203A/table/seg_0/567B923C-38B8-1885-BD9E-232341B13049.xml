@@ -1,0 +1,100 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="567B923C-38B8-1885-BD9E-232341B13049" name="PriceRule">
+<createdBy>Samu</createdBy>
+<createdTime>2022-01-31 11:41:23 UTC</createdTime>
+<generatorID>1BF3F35A-093E-6811-22C9-A579D9688883</generatorID>
+<ownerDesignName>webshopBackend</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="ID" id="4B896875-A9B8-ED07-EFDA-AC08C50AB724">
+<createdBy>Samu</createdBy>
+<createdTime>2022-01-31 11:41:23 UTC</createdTime>
+<generatorID>C9950EFD-BA17-2130-2FDA-12EDA8B31128</generatorID>
+<ownerDesignName>webshopBackend</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="Reduction_Amount" id="33C7865C-31C8-50E8-8654-7E9649ED86D2">
+<createdBy>Samu</createdBy>
+<createdTime>2022-01-31 11:41:23 UTC</createdTime>
+<generatorID>9AC83C23-CA8B-1FF5-CB82-C45B5115C1AF</generatorID>
+<ownerDesignName>webshopBackend</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT020</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="Active" id="AB04B5E7-F991-3249-E16F-6DE7929257F0">
+<createdBy>Samu</createdBy>
+<createdTime>2022-01-31 11:41:23 UTC</createdTime>
+<generatorID>F2D8A29B-7DF9-5625-9B98-D4FD2B064818</generatorID>
+<ownerDesignName>webshopBackend</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT006</logicalDatatype>
+<dataTypeSize>1</dataTypeSize>
+<ownDataTypeParameters>1,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="Product_ID" id="1D461A68-835A-FB4A-9571-91F01D015D45">
+<createdBy>Samu</createdBy>
+<createdTime>2022-01-31 11:41:23 UTC</createdTime>
+<generatorID>A21EA75E-FB99-AC0D-D9C0-B839F56F7E2D</generatorID>
+<ownerDesignName>webshopBackend</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="42933C46-EF21-DD53-4433-66CF6CA27C15" referredColumn="2BB7AE4E-B7E2-ED16-5968-2759B9A00C26"/>
+</associations>
+</Column>
+<Column name="ID11" id="02856249-1030-FA30-F9BB-176256AF6B3A">
+<createdBy>Samu</createdBy>
+<createdTime>2022-01-31 11:55:02 UTC</createdTime>
+<generatorID>D12A864E-7F33-BEDF-93E4-DE080229605F</generatorID>
+<ownerDesignName>webshopBackend</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="DF12A7C3-AB78-E98D-CDAF-4E88AF0E12B3" name="PRICERULE_PK">
+<createdBy>Samu</createdBy>
+<createdTime>2022-01-31 11:41:23 UTC</createdTime>
+<generatorID>A54F5C91-BFF8-0645-74E6-2A24B9982CF5</generatorID>
+<ownerDesignName>webshopBackend</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="4B896875-A9B8-ED07-EFDA-AC08C50AB724"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="13842032-3854-4AC2-937B-3E98B44C467A" name="PriceRule_Product_FK">
+<createdBy>Samu</createdBy>
+<createdTime>2022-01-31 11:41:23 UTC</createdTime>
+<generatorID>A0C189CC-20CE-B985-55F0-DD1A4D29C850</generatorID>
+<ownerDesignName>webshopBackend</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="1D461A68-835A-FB4A-9571-91F01D015D45"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

@@ -6,21 +6,21 @@ import java.util.Currency;
 import java.util.Locale;
 import java.util.Set;
 
-import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
 import com.samax.tech.webs.comp.ProductController;
+import com.samax.tech.webs.comp.PurchaseController;
 import com.samax.tech.webs.entity.Client;
 import com.samax.tech.webs.entity.PriceRule;
 import com.samax.tech.webs.entity.Product;
-import com.samax.tech.webs.entity.ProductToPurchase;
+import com.samax.tech.webs.entity.ProductPurchase;
 import com.samax.tech.webs.entity.Purchase;
 import com.samax.tech.webs.entity.Tag;
+import com.samax.tech.webs.repos.PurchaseRepository;
 
 @SpringBootApplication()
 public class Runner {
@@ -30,7 +30,7 @@ public class Runner {
 	}
 
 	@Bean
-	public CommandLineRunner insertDataIntoDB(ProductController pc) {
+	public CommandLineRunner insertDataIntoDB(ProductController pc, PurchaseController purchc) {
 		return args -> {
 
 			Tag dressage = new Tag("dressage");
@@ -54,12 +54,14 @@ public class Runner {
 
 			Purchase purchase = new Purchase(client, Currency.getInstance(Locale.US));
 
-			ProductToPurchase p2p1 = new ProductToPurchase(p2, purchase, 6);
-			ProductToPurchase p2p2 = new ProductToPurchase(p3, purchase, 3);
-
+			ProductPurchase pp1 = new ProductPurchase(p2, purchase, 6);
+			ProductPurchase pp2 = new ProductPurchase(p3, purchase, 3);
+			
 			pc.postProduct(p1);
 			pc.postProduct(p2);
 			pc.postProduct(p3);
+			
+			purchc.postPurchase(purchase);
 		};
 	}
 }

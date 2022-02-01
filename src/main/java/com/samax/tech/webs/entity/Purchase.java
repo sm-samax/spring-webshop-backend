@@ -6,13 +6,13 @@ import java.util.ArrayList;
 import java.util.Currency;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 
@@ -37,9 +37,9 @@ public class Purchase implements Serializable {
 	@Column(nullable = false)
 	private Currency currency;
 
-	@OneToMany(mappedBy = "purchase")
+	@OneToMany(mappedBy = "purchase", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
 	@JsonBackReference
-	private List<ProductToPurchase> products = new ArrayList<>();
+	private List<ProductPurchase> products = new ArrayList<>();
 	
 	public Purchase() {
 	}
@@ -47,6 +47,7 @@ public class Purchase implements Serializable {
 	public Purchase(Client client, Currency currency) {
 		this.client = client;
 		this.currency = currency;
+		this.sum = new BigDecimal(0.0);
 	}
 
 	public Long getId() {
@@ -69,20 +70,17 @@ public class Purchase implements Serializable {
 		return sum;
 	}
 
-	public void setSum(BigDecimal sum) {
-//		if (this.sum == null)
-//			this.sum = products.stream()
-//					.map(p2p -> p2p.getProduct().getPrice()
-//					.multiply(new BigDecimal(p2p.getQuantity())))
-//					.reduce(new BigDecimal(0.0), (b1, b2) -> b1.add(b2));
-		this.sum = sum;
+	public void updateSum(ProductPurchase productPurchase) {
+		BigDecimal big = new BigDecimal(
+				productPurchase.getProduct().getCurrentPrice().doubleValue() * productPurchase.getQuantity());
+		sum = sum.add(big);
 	}
 
-	public List<ProductToPurchase> getProducts() {
+	public List<ProductPurchase> getProducts() {
 		return products;
 	}
 
-	public void setProducts(List<ProductToPurchase> products) {
+	public void setProducts(List<ProductPurchase> products) {
 		this.products = products;
 	}
 }

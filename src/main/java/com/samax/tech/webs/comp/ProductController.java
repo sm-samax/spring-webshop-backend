@@ -3,13 +3,12 @@ package com.samax.tech.webs.comp;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -19,7 +18,7 @@ import com.samax.tech.webs.service.ProductService;
 
 @CrossOrigin(origins = {"http://localhost:4200"})
 @RestController
-@RequestMapping("api/products")
+@RequestMapping(path = "api/products")
 public class ProductController 
 {
 	private final ProductService service;
@@ -38,7 +37,7 @@ public class ProductController
 	@GetMapping("/{id}")
 	public ResponseEntity<Product> getProductById(@PathVariable Long id)
 	{
-		return ResponseEntity.ok(service.getProductById(id).orElseThrow());
+		return ResponseEntity.ok(service.getProductById(id));
 	}
 	
 	@GetMapping("/t={tags}")
@@ -53,7 +52,7 @@ public class ProductController
 		return ResponseEntity.ok(service.getProductsByNameContainingIgnoreCase(name));
 	}
 	
-	@PutMapping("/post")
+	@PostMapping("/post")
 	public void postProduct(@RequestBody Product product)
 	{
 		service.postProduct(product);

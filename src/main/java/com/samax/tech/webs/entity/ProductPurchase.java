@@ -2,18 +2,22 @@ package com.samax.tech.webs.entity;
 
 import java.io.Serializable;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
-public class ProductToPurchase implements Serializable{
+@Table(name = "Product_Purchase")
+public class ProductPurchase implements Serializable{
 
 	private static final long serialVersionUID = 19161L;
 
@@ -22,24 +26,27 @@ public class ProductToPurchase implements Serializable{
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "product_purchase_gen")
 	private Long id;
 	
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
+	@JsonManagedReference
 	private Product product;
 	
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
+	@JsonManagedReference
 	private Purchase purchase;
 	
 	@Column(nullable = false)
 	private int quantity;
 	
-	public ProductToPurchase() {}
+	public ProductPurchase() {}
 	
-	public ProductToPurchase(Product product, Purchase purchase, int quantity) {
+	public ProductPurchase(Product product, Purchase purchase, int quantity) {
 		this.product = product;
 		this.purchase = purchase;
 		this.quantity = quantity;
 		
-//		this.product.getToPurchase().add(this);
-//		this.purchase.getProducts().add(this);
+		this.product.getPurchases().add(this);
+		this.purchase.getProducts().add(this);
+		this.purchase.updateSum(this);
 	}
 
 	public Long getId() {

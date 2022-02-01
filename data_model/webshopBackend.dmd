@@ -1,0 +1,8 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<OSDM_Design class="oracle.dbtools.crest.model.design.Design" name="webshopBackend" id="DEE4B84C-A5E8-5B9E-AC86-AE682E182669" version="3.5">
+<createdBy>Samu</createdBy>
+<createdTime>2021-11-22 15:02:06 UTC</createdTime>
+<ownerDesignName>webshopBackend</ownerDesignName>
+<capitalNames>false</capitalNames>
+<designId>DEE4B84C-A5E8-5B9E-AC86-AE682E182669</designId>
+</OSDM_Design>
