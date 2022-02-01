@@ -19,3 +19,4 @@
 <p>Therefore using one of end-points can store the entire data model, if necessary, without creating duplicates</p>
 
 ### Data model
+![datamodel](https://user-images.githubusercontent.com/89316582/151942280-60965248-bd3f-4404-842e-22cb03cba163.png)
