@@ -1,4 +1,4 @@
-package com.samax.tech.webs.entity;
+package com.samax.tech.webs.purchase;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -17,6 +17,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.samax.tech.webs.client.Client;
+import com.samax.tech.webs.product.ProductPurchase;
 
 @Entity
 public class Purchase implements Serializable {

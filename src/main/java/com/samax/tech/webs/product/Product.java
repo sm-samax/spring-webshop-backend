@@ -1,4 +1,4 @@
-package com.samax.tech.webs.entity;
+package com.samax.tech.webs.product;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -20,6 +20,8 @@ import javax.persistence.SequenceGenerator;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.samax.tech.webs.pricerule.PriceRule;
+import com.samax.tech.webs.tag.Tag;
 
 @Entity
 public class Product implements Serializable

@@ -1,4 +1,4 @@
-package com.samax.tech.webs.comp;
+package com.samax.tech.webs.purchase;
 
 import java.util.List;
 
@@ -12,9 +12,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.samax.tech.webs.entity.Purchase;
-import com.samax.tech.webs.service.PurchaseService;
 
 @CrossOrigin(origins = {"http://localhost:4200"})
 @RestController

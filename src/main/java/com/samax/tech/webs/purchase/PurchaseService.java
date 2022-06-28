@@ -1,4 +1,4 @@
-package com.samax.tech.webs.service;
+package com.samax.tech.webs.purchase;
 
 import java.util.List;
 
@@ -7,9 +7,6 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import com.samax.tech.webs.entity.Purchase;
-import com.samax.tech.webs.repos.PurchaseRepository;
 
 @Service
 public class PurchaseService {

@@ -1,4 +1,4 @@
-package com.samax.tech.webs.entity;
+package com.samax.tech.webs.client;
 
 import java.time.LocalDate;
 

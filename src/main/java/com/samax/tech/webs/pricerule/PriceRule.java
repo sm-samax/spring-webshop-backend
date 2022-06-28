@@ -1,4 +1,4 @@
-package com.samax.tech.webs.entity;
+package com.samax.tech.webs.pricerule;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -12,10 +12,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
-import javax.persistence.Table;
-import javax.persistence.Transient;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.samax.tech.webs.product.Product;
 
 @Entity
 public class PriceRule implements Serializable 

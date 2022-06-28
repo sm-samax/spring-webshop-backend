@@ -12,15 +12,15 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
-import com.samax.tech.webs.comp.ProductController;
-import com.samax.tech.webs.comp.PurchaseController;
-import com.samax.tech.webs.entity.Client;
-import com.samax.tech.webs.entity.PriceRule;
-import com.samax.tech.webs.entity.Product;
-import com.samax.tech.webs.entity.ProductPurchase;
-import com.samax.tech.webs.entity.Purchase;
-import com.samax.tech.webs.entity.Tag;
-import com.samax.tech.webs.repos.PurchaseRepository;
+import com.samax.tech.webs.client.Client;
+import com.samax.tech.webs.pricerule.PriceRule;
+import com.samax.tech.webs.product.Product;
+import com.samax.tech.webs.product.ProductController;
+import com.samax.tech.webs.product.ProductPurchase;
+import com.samax.tech.webs.purchase.Purchase;
+import com.samax.tech.webs.purchase.PurchaseController;
+import com.samax.tech.webs.purchase.PurchaseRepository;
+import com.samax.tech.webs.tag.Tag;
 
 @SpringBootApplication()
 public class Runner {

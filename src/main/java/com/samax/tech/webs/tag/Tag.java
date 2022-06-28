@@ -1,4 +1,4 @@
-package com.samax.tech.webs.entity;
+package com.samax.tech.webs.tag;
 
 import java.io.Serializable;
 import java.util.HashSet;
@@ -14,6 +14,7 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.samax.tech.webs.product.Product;
 
 @Entity
 @Table(name = "TAG")

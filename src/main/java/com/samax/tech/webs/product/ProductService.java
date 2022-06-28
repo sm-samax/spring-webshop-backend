@@ -1,4 +1,4 @@
-package com.samax.tech.webs.service;
+package com.samax.tech.webs.product;
 
 import java.util.List;
 import java.util.Optional;
@@ -9,9 +9,6 @@ import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.RequestEntity;
 import org.springframework.stereotype.Service;
-
-import com.samax.tech.webs.entity.Product;
-import com.samax.tech.webs.repos.ProductRepository;
 
 @Service
 public class ProductService 

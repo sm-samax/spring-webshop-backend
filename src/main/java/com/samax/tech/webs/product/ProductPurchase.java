@@ -1,4 +1,4 @@
-package com.samax.tech.webs.entity;
+package com.samax.tech.webs.product;
 
 import java.io.Serializable;
 
@@ -14,6 +14,7 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.samax.tech.webs.purchase.Purchase;
 
 @Entity
 @Table(name = "Product_Purchase")
